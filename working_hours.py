@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import cgi
-#import cgitb
+import cgitb
 #cgitb.enable()
 
 print "Content-Type: text/html"     # HTML is following
