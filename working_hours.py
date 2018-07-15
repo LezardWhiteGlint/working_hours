@@ -58,6 +58,7 @@ date = []
 weekday =[]
 status = []
 time_cal = []
+weeklist = weeklist.weeklist_maker()
 
 #filename = 'sample1.html'
 filename = os.path.join(application_path, 'sample.html')
@@ -175,6 +176,20 @@ def daily_display(daily_h,date):
         message = str(hours)+':'+str(minutes)
         print('<p>Date: '+date[i]+'-------'+message+'</p>')
         print "\n"
+	
+	
+def ulti_display(weeklist,daily_h,date):
+	total = 0
+	data = []
+	for weekday in weeklist:
+		for i in range(len(date)):
+			if weekday == date[i]:
+				data.append(daily_h[i])
+				total = total + daily_h[i]
+	for i in range(len(weekday)):
+		print('<p>Date: '+weekday[i]+'-------'+data[i]+'</p>')
+		print "\n"
+	print('<p>This Week Total: '+weekday[i]+'-------'+data[i]+'</p>'
 
 def app():
     content = table(filename)
@@ -187,6 +202,7 @@ def app():
    # print(date_h)
     daily_display(daily_h,date_h)
     display(time_result)
+    ulti_display(weeklist,daily_h,date)
 
 app()
 
