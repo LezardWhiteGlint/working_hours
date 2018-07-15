@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import cgi
-import cgitb
-cgitb.enable()
+import weeklist
+#import cgitb
+#cgitb.enable()
 
 print "Content-Type: text/html"     # HTML is following
 print
@@ -179,17 +180,39 @@ def daily_display(daily_h,date):
 	
 	
 def ulti_display(weeklist,daily_h,date):
-	total = 0
-	data = []
-	for weekday in weeklist:
-		for i in range(len(date)):
-			if weekday == date[i]:
-				data.append(daily_h[i])
-				total = total + daily_h[i]
-	for i in range(len(weekday)):
-		print('<p>Date: '+weekday[i]+'-------'+data[i]+'</p>')
-		print "\n"
-	print('<p>This Week Total: '+weekday[i]+'-------'+data[i]+'</p>'
+    total = 0
+    data = []
+    message = []
+    for weekday in weeklist:
+        for i in range(len(date)):
+           a = int(weekday.split('-')[2])
+           b = int(date[i].split('/')[2])
+           c = int(weekday.split('-')[1])
+           d = int(date[i].split('/')[1]) 
+           if a == b and c == d:
+               data.append(daily_h[i])
+               total = total + daily_h[i]
+    print "<html><body>"
+    for i in data:
+        hours = int(i/2)
+        minutes = int(i%2)*30
+        message.append(str(hours)+':'+str(minutes))
+    total_h = int(total/2)
+    total_m = int(total%2)*30
+    total_message = str(total_h)+':'+str(total_m)
+   # print(weeklist)
+   # print(date)
+   # print(data)
+   # print(message)
+    try:
+        for i in range(len(weekday)):
+            print('<p>Date: '+weeklist[i]+'-------'+message[i]+'</p>')
+            print "\n"
+      #  print('<p>This Week Total: '+weeklist[i]+'-------'+total_message+'</p>')
+    except: IndexError
+    print('<p><font color="FF0000">This Week Total: '+'-------'+total_message+'</font color></p>')
+    print "</body></html>"
+
 
 def app():
     content = table(filename)
@@ -200,9 +223,10 @@ def app():
    # print(daily_h)
    # print('dateh')
    # print(date_h)
-    daily_display(daily_h,date_h)
-    display(time_result)
-    ulti_display(weeklist,daily_h,date)
+    ulti_display(weeklist,daily_h,date_h)
+   # daily_display(daily_h,date_h)
+   # display(time_result)
+   # ulti_display(weeklist,daily_h,date_h)
 
 app()
 
